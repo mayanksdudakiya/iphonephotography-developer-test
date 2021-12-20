@@ -5,6 +5,8 @@ namespace Tests;
 use App\Events\CommentWritten;
 use App\Events\LessonWatched;
 use App\Listeners\UnlockAchievementBadgeListener;
+use App\Listeners\UnlockCommentWrittenListener;
+use App\Listeners\UnlockLessonWatchedListener;
 use App\Models\Comment;
 use App\Models\Lesson;
 use App\Models\User;
@@ -60,7 +62,7 @@ abstract class TestCase extends BaseTestCase
 
             // Events & Listening 
             $commentCreated = new CommentWritten($comment);
-            $listener = new UnlockAchievementBadgeListener();
+            $listener = new UnlockCommentWrittenListener();
             $listener->handle($commentCreated);
         }
     }
@@ -84,7 +86,7 @@ abstract class TestCase extends BaseTestCase
 
             // Events & Listening 
             $lessonWatched = new LessonWatched($lesson, $user);
-            $listener = new UnlockAchievementBadgeListener();
+            $listener = new UnlockLessonWatchedListener();
             $listener->handle($lessonWatched);
 
             if ($tempCount === $numberOfLessons) :

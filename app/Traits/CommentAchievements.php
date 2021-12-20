@@ -40,6 +40,8 @@ trait CommentAchievements {
 
         $response = [];
 
+        $response['unlocked_achievements']['comment'] = '';
+
         // If user has no achievement then response with only next achievement 
         if (!empty($user->achievements)) :
             // Get latest/current comment achievement
@@ -58,6 +60,6 @@ trait CommentAchievements {
 
         $response['next_available_achievements']['comment'] = $nextCommentAchievement->name;
 
-        return $response;
+        return collect($response);
     }
 }

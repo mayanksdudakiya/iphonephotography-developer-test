@@ -52,12 +52,13 @@ trait BadgeAchievements {
         $response = [];
         
         // If user has no achievement then response with only next achievement 
-        if (!empty($user->badges)) :
+        if ($user->badges->count() > 0) :
+            
 
             // Get latest/current badge
             $currentBadge = $user->badges->last();
 
-            // Get next badge
+            // Get next badge  
             if (!empty($currentBadge)) :
                 $nextBadge = $currentBadge->nextBadge;
             endif;

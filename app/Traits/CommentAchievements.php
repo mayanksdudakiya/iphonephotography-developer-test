@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Events\AchievementUnlocked;
 use App\Models\Achievement;
+use App\Models\Comment;
 
 trait CommentAchievements {
     
@@ -14,8 +15,8 @@ trait CommentAchievements {
         $user = auth()->user();
 
         // Comment count
-        $commentCount = $user->comments->count();
-        
+        $commentCount = Comment::where('user_id', $user->id)->count();
+
         // Get the comment achievements
         $allCommentAchievements = Achievement::commentType()->get();
        
@@ -23,7 +24,7 @@ trait CommentAchievements {
         $commentAchievement = $allCommentAchievements->first( function($achievement) use ($commentCount) {
             return $achievement->qualify === $commentCount;
         }); 
-
+        
         // Attach achievements to the user in user_achievements
         if (!empty($commentAchievement)) :
             $commentAchievement->awardTo($user);
@@ -42,8 +43,10 @@ trait CommentAchievements {
 
         $response['unlocked_achievements']['comment'] = '';
 
+        $isCommentAchievementExists = $user->achievements->where('type', 'comment')->count();
+
         // If user has no achievement then response with only next achievement 
-        if (!empty($user->achievements)) :
+        if ($isCommentAchievementExists > 0) :
             // Get latest/current comment achievement
             $currentCommentAchievement = $user->achievements->where('type', 'comment')->last();
 

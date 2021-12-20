@@ -42,8 +42,10 @@ trait LessonAchievements {
 
         $response['unlocked_achievements']['lesson'] = '';
         
+        $isLessonAchievementExists = $user->achievements->where('type', 'lesson')->count();
+
         // If user has no achievement then response with only next achievement 
-        if (!empty($user->achievements)) :
+        if ($isLessonAchievementExists > 0) :
 
             // Get latest/current comment achievement
             $currentLessonAchievement = $user->achievements->where('type', 'lesson')->last();

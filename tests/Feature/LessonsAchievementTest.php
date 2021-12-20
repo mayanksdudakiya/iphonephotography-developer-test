@@ -8,19 +8,19 @@ use Tests\TestCase;
 
 class LessonsAchievementTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     /** @test */
-    public function an_achievement_is_unlocked_when_user_watch_first_lesson()
-    {
-        $this->dataSeeder();
+    // public function an_achievement_is_unlocked_when_user_watch_first_lesson()
+    // {
+    //     $this->dataSeeder();
 
-        $user = $this->authorizedUser();
+    //     $user = $this->authorizedUser();
 
-        // User watched single lesson
-        $this->generateLessons(1, $user);
+    //     // User watched single lesson
+    //     $this->generateLessons(1, $user);
 
-        // Check user's total comment inserted into the database
-        $this->assertCount(1, $user->watched);
-    }
+    //     // Check user's total watched inserted into the database
+    //     $this->assertCount(1, $user->watched);
+    // }
 }

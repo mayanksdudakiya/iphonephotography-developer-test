@@ -3,10 +3,13 @@
 namespace Tests\Unit;
 
 use App\Models\Badge;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class BadgeTest extends TestCase
 {
+    use RefreshDatabase;
+    
     /** @test */
     public function it_has_a_name_column()
     {

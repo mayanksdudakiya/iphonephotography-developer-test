@@ -17,6 +17,12 @@ class Badge extends Model
         return $this->belongsToMany(User::class, 'user_badges')->withTimestamps();
     }
 
+    // Attach users with badge in pivot table
+    public function awardTo(User $user)
+    {
+        $this->users()->attach($user);
+    }
+
     // Get next lesson achievement
     public function getNextBadgeAttribute()
     {

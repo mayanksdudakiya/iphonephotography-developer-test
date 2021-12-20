@@ -25,7 +25,7 @@ class AchievementsController extends Controller
 
         $badgeResponse = $this->badgeResponse();
         
-        $response = collect($commentLessonResponse)->merge($$badgeResponse);
+        $response = collect($commentLessonResponse)->merge($badgeResponse);
         
         return response()->json($response);
     }

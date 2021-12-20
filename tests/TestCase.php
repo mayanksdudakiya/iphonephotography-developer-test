@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Events\CommentWritten;
+use App\Events\LessonWatched;
 use App\Listeners\UnlockAchievementBadgeListener;
 use App\Models\Comment;
 use App\Models\Lesson;
@@ -72,14 +73,23 @@ abstract class TestCase extends BaseTestCase
         // Get all the lessons
         $lessons = Lesson::get();
 
-        // Attach all the lessons to the user
+        // Attach watched lessons to the user directly
+        $tempCount = 0;
+
         foreach ($lessons as $lesson) {
-            $user->lessons()->attach($lesson->id, ['watched' => false]);
-        }
-        
-        // Number of lessons watched by the user 
-        for ($i = 0; $i < $numberOfLessons; $i++) {
             
+            $user->lessons()->attach($lesson->id, ['watched' => true]);
+            
+            $tempCount++;
+
+            // Events & Listening 
+            $lessonWatched = new LessonWatched($lesson, $user);
+            $listener = new UnlockAchievementBadgeListener();
+            $listener->handle($lessonWatched);
+
+            if ($tempCount === $numberOfLessons) :
+                break;
+            endif;
         }
     }
 }

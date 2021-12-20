@@ -16,4 +16,12 @@ class Badge extends Model
     {
         return $this->belongsToMany(User::class, 'user_badges')->withTimestamps();
     }
+
+    // Get next lesson achievement
+    public function getNextBadgeAttribute()
+    {
+        return static::where('id', '>', $this->id)
+                    ->orderBy('id','asc')
+                    ->first();
+    }
 }

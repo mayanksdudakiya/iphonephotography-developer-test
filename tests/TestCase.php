@@ -7,6 +7,8 @@ use App\Listeners\UnlockAchievementBadgeListener;
 use App\Models\Comment;
 use App\Models\Lesson;
 use App\Models\User;
+use Database\Seeders\AchievementSeeder;
+use Database\Seeders\BadgeSeeder;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -20,9 +22,9 @@ abstract class TestCase extends BaseTestCase
     {
         $this->seed();
 
-        $this->seed(AchievementsSeeder::class);
+        $this->seed(AchievementSeeder::class);
 
-        $this->seed(BadgesSeeder::class);
+        $this->seed(BadgeSeeder::class);
     }
 
     /**

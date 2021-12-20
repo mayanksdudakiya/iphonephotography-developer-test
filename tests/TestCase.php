@@ -23,11 +23,10 @@ abstract class TestCase extends BaseTestCase
      */
     protected function dataSeeder()
     {
-        $this->seed();
-
-        $this->seed(AchievementSeeder::class);
-
-        $this->seed(BadgeSeeder::class);
+        $this->seed([
+            AchievementSeeder::class,
+            BadgeSeeder::class,
+        ]);
     }
 
     /**

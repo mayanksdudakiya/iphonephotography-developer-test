@@ -2,21 +2,16 @@
 
 namespace App\Listeners;
 
+use App\Traits\BadgeAchievements;
+use App\Traits\CommentAchievements;
+use App\Traits\LessonAchievements;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
 class UnlockAchievementBadgeListener
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
+    use CommentAchievements, LessonAchievements, BadgeAchievements;
+    
     /**
      * Handle the event.
      *
@@ -25,6 +20,13 @@ class UnlockAchievementBadgeListener
      */
     public function handle($event)
     {
-        //
+        // Unlock comment achievement business logic from trait
+        $this->unlockCommentAchievement();
+
+        // Unlock lesson achievement business logic from trait
+        $this->unlockLessonAchievement();
+
+        // Unlock badge based on comment & lessons achievement
+        $this->unlockBadge();
     }
 }

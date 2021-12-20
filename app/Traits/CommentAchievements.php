@@ -32,4 +32,32 @@ trait CommentAchievements {
             AchievementUnlocked::dispatch($commentAchievement->name, $user);
         endif;
     }
+
+    // Prepare an comment achievement response
+    public function commentAchievementResponse()
+    {
+        $user = auth()->user();
+
+        $response = [];
+
+        // If user has no achievement then response with only next achievement 
+        if (!empty($user->achievements)) :
+            // Get latest/current comment achievement
+            $currentCommentAchievement = $user->achievements->where('type', 'comment')->last();
+
+            $response['unlocked_achievements']['comment'] = $currentCommentAchievement->name;
+
+            // Get next comment achievement
+            if (!empty($currentCommentAchievement)) :
+                $nextCommentAchievement = $currentCommentAchievement->nextCommentAchievement;
+            endif;
+        else:
+            // If no comment achievement then take the first comment achievement as next achievement
+            $nextCommentAchievement = Achievement::commentType()->first();
+        endif;
+
+        $response['next_available_achievements']['comment'] = $nextCommentAchievement->name;
+
+        return $response;
+    }
 }

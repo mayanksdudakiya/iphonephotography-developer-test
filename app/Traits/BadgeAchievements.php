@@ -67,9 +67,9 @@ trait BadgeAchievements {
             $nextBadge = $currentBadge->nextBadge;
         endif;
 
-        $response['current_badge'] = $currentBadge;
-        $response['next_badge'] = $nextBadge;
-        $response['remaing_to_unlock_next_badge'] = $nextBadge->qualify;
+        $response['current_badge'] = $currentBadge->name;
+        $response['next_badge'] = $nextBadge->name;
+        $response['remaining_to_unlock_next_badge'] = $nextBadge->qualify;
 
         return collect($response);
     }

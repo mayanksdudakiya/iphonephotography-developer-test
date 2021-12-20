@@ -31,4 +31,28 @@ class Achievement extends Model
     {
         $query->where('type', 'lesson');
     }
+
+    // Attach users with achievement in pivot table
+    public function awardTo(User $user)
+    {
+        $this->users()->attach($user);
+    }
+
+    // Get next comment achievement
+    public function getNextCommentAchievementAttribute()
+    {
+        return static::where('id', '>', $this->id)
+                    ->where('type', 'comment')
+                    ->orderBy('id','asc')
+                    ->first();
+    }
+
+    // Get next lesson achievement
+    public function getNextLessonAchievementAttribute()
+    {
+        return static::where('id', '>', $this->id)
+                    ->where('type', 'lesson')
+                    ->orderBy('id','asc')
+                    ->first();
+    }
 }

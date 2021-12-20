@@ -2,11 +2,12 @@
 
 namespace App\Listeners;
 
+use App\Traits\BadgeAchievements;
 use App\Traits\CommentAchievements;
 
 class UnlockCommentWrittenListener
 {
-    use CommentAchievements;
+    use CommentAchievements, BadgeAchievements;
 
     /**
      * Handle the event.
@@ -16,7 +17,10 @@ class UnlockCommentWrittenListener
      */
     public function handle($event)
     {
-         // Unlock comment achievement business logic from trait
-         $this->unlockCommentAchievement();
+        // Unlock comment achievement business logic from trait
+        $this->unlockCommentAchievement();
+
+        // Unlock badge based on comment & lessons achievement
+        $this->unlockBadge();
     }
 }

@@ -2,11 +2,12 @@
 
 namespace App\Listeners;
 
+use App\Traits\BadgeAchievements;
 use App\Traits\LessonAchievements;
 
 class UnlockLessonWatchedListener
 {
-    use LessonAchievements;
+    use LessonAchievements, BadgeAchievements;
 
     /**
      * Handle the event.
@@ -18,5 +19,8 @@ class UnlockLessonWatchedListener
     {
         // Unlock lesson achievement business logic from trait
         $this->unlockLessonAchievement();
+
+        // Unlock badge based on comment & lessons achievement
+        $this->unlockBadge();
     }
 }

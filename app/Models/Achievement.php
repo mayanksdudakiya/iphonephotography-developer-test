@@ -11,4 +11,9 @@ class Achievement extends Model
 
     // Allow mass assignment for now
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_achievements')->withTimestamps();
+    }
 }

@@ -15,6 +15,9 @@ class CreateBadgesTable extends Migration
     {
         Schema::create('badges', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->mediumText('description');
+            $table->integer('qualify');
             $table->timestamps();
         });
     }

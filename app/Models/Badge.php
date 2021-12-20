@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Badge extends Model
 {
     use HasFactory;
+
+    // Allow mass assignment for now
+    protected $guarded = [];
 }

@@ -20,12 +20,6 @@ class UnlockAchievementBadgeListener
      */
     public function handle($event)
     {
-        // Unlock comment achievement business logic from trait
-        $this->unlockCommentAchievement();
-
-        // Unlock lesson achievement business logic from trait
-        $this->unlockLessonAchievement();
-
         // Unlock badge based on comment & lessons achievement
         $this->unlockBadge();
     }
